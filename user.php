@@ -81,17 +81,47 @@ class User {
     }
 }
    
-     public function disconnect(){
+    public function disconnect(){
            session_unset();
         }
 
     public function delete(){
       $connexion = mysqli_connect ("localhost", "root", "", "classe");
-      $requete = "DELETE  FROM user WHERE login ='".$_SESSION['login']."'";
+      $requete = "DELETE  FROM user WHERE login='".$_SESSION['login']."'";
       $query = mysqli_query($connexion,$requete);
 
     }
+    public function update($login, $password, $email, $firstname,$lastname){
+         $connexion = mysqli_connect ("localhost", "root", "", "classe");
+          $password= password_hash($_POST["password"],PASSWORD_DEFAULT);
+         $requete = "UPDATE user SET login = '$login', password = '$password', email = '$email', firstname = '$firstname', lastname = '$lastname' WHERE login = '".$_SESSION['login']."'";
+         $query = mysqli_query($connexion,$requete); 
+         $_SESSION['login'] = $login;
+         header('Location: index.php');
+         
+    }
 
-}  	
+
+    public function isConnected(){
+        $connexion = mysqli_connect ("localhost", "root", "", "classe");
+           
+        if ($_SESSION['login']=true){
+            echo "Bonjour,'".$_SESSION['login']."'";
+        } 
+        
+     }
+ 
+   
+
+     
+          }
+        }
+
+      }
+
+ 
+   ?>
+
+
+
    	
-?>

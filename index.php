@@ -70,7 +70,57 @@ if (isset($_POST['valider'])) {
     ?>
             <h1>Supprimé l utilisateur</h1>
     <form method="post"><input type="submit" name="effacer"></form>
-  
+
+    <?php
+    if (isset($_POST['modifier'])) {
+            $login=$_POST['login'];
+            $password= password_hash($_POST["password"], PASSWORD_DEFAULT);
+            $email=$_POST['email'];
+            $firstname=$_POST['firstname'];
+            $lastname=$_POST['lastname'];
+
+
+         $greg->update($login , $password , $email , $firstname , $lastname);
+         echo "Votre profil est modifié";
+         
+
+    }
+    ?>
+      <h1>Modifier</h1>
+    <form method="post" action="">
+        <label>Login</label></br>
+        <input type="text" name="login"></br>
+        <label>Mot de passe</label></br>
+        <input type="text" name="password"></br>
+        <label>Email</label></br>
+        <input type="mail" name="email" ></br>
+        <label>Firstname</label></br>
+        <input type="text" name="firstname"></br>
+        <label>Lastname</label></br>
+        <input type="text" name="lastname"></br>
+        <input type="submit" name="modifier">
+    </form>
+
+    <h1>Connecté?</h1>
+
+    <?php
+     
+    if (isset($_SESSION['login'])) {
+         $greg->isConnected();
+        
+     }
+    ?>
+
+    <h1>Toute les infos</h1>
+
+    <?php
+       
+    if (isset($_SESSION['login'])){
+           
+         $greg->getAllInfos();
+     }
+    ?>
+
 
 </body>
 </html>
